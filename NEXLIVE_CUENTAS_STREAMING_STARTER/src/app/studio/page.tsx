@@ -1,0 +1,2 @@
+import Link from "next/link"; import {redirect} from "next/navigation"; import {createClient} from "@/lib/supabase/server"; import Studio from "./studio";
+export default async function Page(){const supabase=await createClient();const {data:{user}}=await supabase.auth.getUser();if(!user)redirect("/login");return <main className="wrap"><Link className="brand" href="/">NEXLIVE</Link><h1>Estudio de transmisión</h1><p className="muted">Conecta tu cámara y micrófono cuando LiveKit esté configurado.</p><Studio/></main>;}

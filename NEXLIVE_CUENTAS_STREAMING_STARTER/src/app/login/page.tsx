@@ -1,0 +1,5 @@
+ "use client";
+import {useState} from "react"; import Link from "next/link"; import {useRouter} from "next/navigation"; import {createClient} from "@/lib/supabase/client";
+export default function Login(){const [email,setEmail]=useState("");const [password,setPassword]=useState("");const [message,setMessage]=useState("");const router=useRouter();
+async function submit(e:React.FormEvent){e.preventDefault();const {error}=await createClient().auth.signInWithPassword({email,password});if(error)setMessage(error.message);else router.push("/dashboard");}
+return <main className="wrap"><Link className="brand" href="/">NEXLIVE</Link><form className="panel form" onSubmit={submit}><h1>Iniciar sesión</h1><label>Correo</label><input className="field" type="email" required value={email} onChange={e=>setEmail(e.target.value)}/><label>Contraseña</label><input className="field" type="password" required value={password} onChange={e=>setPassword(e.target.value)}/><button className="btn">Entrar</button><p className="muted">{message}</p><p>¿No tienes cuenta? <Link className="blue" href="/register">Regístrate</Link></p></form></main>;}

@@ -1,0 +1,4 @@
+import Link from "next/link";
+export default function Home() {
+ return <><nav className="nav"><Link className="brand" href="/">NEXLIVE</Link><div style={{display:"flex",gap:12}}><Link className="btn secondary" href="/login">Entrar</Link><Link className="btn" href="/register">Crear cuenta</Link></div></nav><main className="wrap"><section className="hero"><div className="tag">TU MUNDO. EN DIRECTO.</div><h1>Todo sucede<br/><span className="blue">en vivo.</span></h1><p className="muted">Descubre creadores, conecta con comunidades y transmite tus momentos.</p><p><Link className="btn" href="/register">Comenzar ahora</Link></p></section><h2>Explora NEXLIVE</h2><div className="grid">{["Juegos","Música","Charlas","Deportes"].map(x=><div className="panel" key={x}><span className="live">EN VIVO</span><h3>{x}</h3><p className="muted">Próximamente encontrarás canales en esta categoría.</p></div>)}</div></main></>;
+}

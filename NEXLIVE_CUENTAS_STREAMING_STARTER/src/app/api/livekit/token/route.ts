@@ -1,0 +1,4 @@
+import {NextResponse} from "next/server"; import {AccessToken} from "livekit-server-sdk"; import {createClient} from "@/lib/supabase/server";
+export async function POST(){const supabase=await createClient();const {data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({error:"Inicia sesión primero."},{status:401});
+const key=process.env.LIVEKIT_API_KEY,secret=process.env.LIVEKIT_API_SECRET;if(!key||!secret)return NextResponse.json({error:"Faltan las credenciales de LiveKit en las variables de entorno."},{status:503});
+const room="nexlive-"+user.id.slice(0,8);const token=new AccessToken(key,secret,{identity:user.id,ttl:"1h"});token.addGrant({room,roomJoin:true,canPublish:true,canSubscribe:true});return NextResponse.json({token:await token.toJwt(),room});}
